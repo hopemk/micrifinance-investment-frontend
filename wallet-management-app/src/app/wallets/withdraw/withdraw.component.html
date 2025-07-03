@@ -1,0 +1,51 @@
+<div class="container mt-4">
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>Withdraw Funds</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <div *ngIf="loadingWallet" class="text-center my-4">
+        <p>Loading wallet details...</p>
+      </div>
+
+      <div *ngIf="error" class="alert alert-danger">
+        {{ error }}
+      </div>
+
+      <div *ngIf="success" class="alert alert-success">
+        {{ success }}
+      </div>
+
+      <div *ngIf="!loadingWallet && wallet" class="wallet-info mb-4">
+        <h3>Wallet: {{ wallet.name }}</h3>
+        <p>Current Balance: {{ wallet.balance | currency }}</p>
+      </div>
+
+      <form *ngIf="!loadingWallet && wallet" [formGroup]="withdrawForm" (ngSubmit)="onSubmit()" class="withdraw-form">
+        <div class="row">
+          <div class="col-md-6 mb-3">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>Amount to Withdraw</mat-label>
+              <input matInput type="number" formControlName="amount" placeholder="Enter amount">
+              <mat-icon matPrefix class="input-icon">attach_money</mat-icon>
+              <mat-error *ngIf="withdrawForm.get('amount')?.hasError('required')">
+                Amount is required
+              </mat-error>
+              <mat-error *ngIf="withdrawForm.get('amount')?.hasError('min')">
+                Amount must be greater than 0
+              </mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div class="form-actions">
+          <button mat-raised-button color="primary" type="submit" [disabled]="withdrawForm.invalid || loading">
+            <span *ngIf="loading">Processing...</span>
+            <span *ngIf="!loading">Withdraw Funds</span>
+          </button>
+          <button mat-button type="button" (click)="cancel()">Cancel</button>
+        </div>
+      </form>
+    </mat-card-content>
+  </mat-card>
+</div>

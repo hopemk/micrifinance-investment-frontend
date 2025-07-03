@@ -1,0 +1,37 @@
+<!-- Wallet Management App with Side Menu -->
+
+<div class="app-container">
+  <mat-toolbar color="primary" class="toolbar">
+    <button mat-icon-button (click)="sidenav.toggle()">
+      <mat-icon>menu</mat-icon>
+    </button>
+    <span>Wallet Management App</span>
+    <span class="spacer"></span>
+  </mat-toolbar>
+
+  <mat-sidenav-container class="sidenav-container">
+    <mat-sidenav #sidenav mode="side" opened class="sidenav">
+      <mat-nav-list>
+        <h2 class="menu-header">Menu</h2>
+        <a mat-list-item routerLink="/wallet-type">
+          <mat-icon>account_balance_wallet</mat-icon>
+          <span class="menu-item">Wallet Type</span>
+        </a>
+        <a mat-list-item routerLink="/account">
+          <mat-icon>account_circle</mat-icon>
+          <span class="menu-item">Account</span>
+        </a>
+        <a mat-list-item routerLink="/wallets">
+          <mat-icon>credit_card</mat-icon>
+          <span class="menu-item">Wallets</span>
+        </a>
+      </mat-nav-list>
+    </mat-sidenav>
+
+    <mat-sidenav-content class="content">
+      <div class="content-container">
+        <router-outlet></router-outlet>
+      </div>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+</div>

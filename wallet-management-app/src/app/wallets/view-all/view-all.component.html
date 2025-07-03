@@ -1,0 +1,70 @@
+<div class="container mt-4">
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>My Wallets</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <div class="row mb-3">
+        <div class="col-md-12">
+          <button mat-raised-button color="primary" (click)="createNewWallet()">
+            <mat-icon>add</mat-icon> Create New Wallet
+          </button>
+        </div>
+      </div>
+
+      <div *ngIf="loading" class="text-center my-4">
+        <p>Loading wallets...</p>
+      </div>
+
+      <div *ngIf="error" class="alert alert-danger">
+        {{ error }}
+      </div>
+
+      <div *ngIf="!loading && wallets.length === 0" class="text-center my-4">
+        <p>No wallets found. Create a new one to get started.</p>
+      </div>
+
+      <div *ngIf="!loading && wallets.length > 0" class="table-responsive">
+        <table class="table table-striped table-hover">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Balance</th>
+              <th>Wallet Type</th>
+              <th>Account</th>
+              <th>Status</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let wallet of wallets">
+              <td>{{ wallet.name }}</td>
+              <td>{{ wallet.balance | currency }}</td>
+              <td>{{ wallet.walletType.name }}</td>
+              <td>{{ wallet.account.name }}</td>
+              <td>
+                <span [ngClass]="{'badge bg-success': wallet.entityStatus === 'ACTIVE', 'badge bg-danger': wallet.entityStatus !== 'ACTIVE'}">
+                  {{ wallet.entityStatus }}
+                </span>
+              </td>
+              <td>
+                <button mat-icon-button color="primary" (click)="viewDetails(wallet.id)" matTooltip="View Details">
+                  <mat-icon>visibility</mat-icon>
+                </button>
+                <button mat-icon-button color="accent" (click)="deposit(wallet.id)" matTooltip="Deposit">
+                  <mat-icon>add_circle</mat-icon>
+                </button>
+                <button mat-icon-button color="warn" (click)="withdraw(wallet.id)" matTooltip="Withdraw">
+                  <mat-icon>remove_circle</mat-icon>
+                </button>
+                <button mat-icon-button color="warn" (click)="deactivate(wallet.id)" matTooltip="Deactivate" *ngIf="wallet.entityStatus === 'ACTIVE'">
+                  <mat-icon>block</mat-icon>
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>

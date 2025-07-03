@@ -1,0 +1,56 @@
+.account-card {
+  margin-bottom: 20px;
+  transition: transform 0.3s;
+
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+
+  mat-card-header {
+    margin-bottom: 15px;
+  }
+
+  mat-icon {
+    color: #1976d2;
+  }
+}
+
+mat-card-title {
+  color: #1976d2;
+  font-weight: 500;
+}
+
+.profile-info, .security-info {
+  p {
+    margin-bottom: 8px;
+
+    strong {
+      color: #555;
+    }
+  }
+}
+
+.notification-prefs {
+  p {
+    margin-bottom: 10px;
+  }
+}
+
+.notification-options {
+  .form-check {
+    margin-bottom: 10px;
+  }
+}
+
+.container {
+  padding: 20px;
+}
+
+mat-card-actions {
+  padding: 16px;
+
+  button {
+    margin-right: 8px;
+  }
+}

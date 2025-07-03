@@ -1,0 +1,88 @@
+<div class="container mt-4">
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>Account Details</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <div *ngIf="loading" class="text-center my-4">
+        <p>Loading account details...</p>
+      </div>
+
+      <div *ngIf="error" class="alert alert-danger">
+        {{ error }}
+      </div>
+
+      <div *ngIf="!loading && account" class="account-details">
+        <div class="row">
+          <div class="col-md-6">
+            <div class="detail-item">
+              <h3>Name</h3>
+              <p>{{ account.name }}</p>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="detail-item">
+              <h3>Phone Number</h3>
+              <p>{{ account.phoneNumber }}</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-6">
+            <div class="detail-item">
+              <h3>Created By</h3>
+              <p>{{ account.createdBy }}</p>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="detail-item">
+              <h3>Date Created</h3>
+              <p>{{ account.dateCreated | date:'medium' }}</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="row" *ngIf="account.dateUpdated">
+          <div class="col-md-6">
+            <div class="detail-item">
+              <h3>Date Updated</h3>
+              <p>{{ account.dateUpdated | date:'medium' }}</p>
+            </div>
+          </div>
+          <div class="col-md-6" *ngIf="account.entityStatus">
+            <div class="detail-item">
+              <h3>Status</h3>
+              <p>
+                <span [ngClass]="{'badge bg-success': account.entityStatus === 'ACTIVE', 'badge bg-danger': account.entityStatus !== 'ACTIVE'}">
+                  {{ account.entityStatus }}
+                </span>
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-12">
+            <div class="detail-item">
+              <h3>ID</h3>
+              <p class="id-text">{{ account.id }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="action-buttons" *ngIf="!loading && account">
+        <button mat-raised-button color="primary" (click)="editAccount()">
+          <mat-icon>edit</mat-icon> Edit
+        </button>
+        <button mat-raised-button color="warn" (click)="deleteAccount()">
+          <mat-icon>delete</mat-icon> Delete
+        </button>
+        <button mat-button (click)="goBack()">
+          <mat-icon>arrow_back</mat-icon> Back to List
+        </button>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>

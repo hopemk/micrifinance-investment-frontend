@@ -1,0 +1,67 @@
+<div class="container mt-4">
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>Update Wallet Type</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <div *ngIf="loadingData" class="text-center my-4">
+        <p>Loading wallet type data...</p>
+      </div>
+
+      <div *ngIf="error" class="alert alert-danger">
+        {{ error }}
+      </div>
+
+      <div *ngIf="success" class="alert alert-success">
+        {{ success }}
+      </div>
+
+      <form *ngIf="!loadingData && walletType" [formGroup]="walletTypeForm" (ngSubmit)="onSubmit()" class="wallet-type-form">
+        <div class="row">
+          <div class="col-md-6 mb-3">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>Name</mat-label>
+              <input matInput formControlName="name">
+              <mat-icon matPrefix class="input-icon">label</mat-icon>
+              <mat-error *ngIf="walletTypeForm.get('name')?.hasError('required')">
+                Name is required
+              </mat-error>
+            </mat-form-field>
+          </div>
+
+          <div class="col-md-6 mb-3">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>Amount Limit</mat-label>
+              <input matInput formControlName="amountLimit">
+              <mat-icon matPrefix class="input-icon">attach_money</mat-icon>
+              <mat-error *ngIf="walletTypeForm.get('amountLimit')?.hasError('required')">
+                Amount limit is required
+              </mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-6 mb-3">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>Owner ID</mat-label>
+              <input matInput formControlName="ownerId">
+              <mat-icon matPrefix class="input-icon">person</mat-icon>
+              <mat-error *ngIf="walletTypeForm.get('ownerId')?.hasError('required')">
+                Owner ID is required
+              </mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div class="form-actions">
+          <button mat-raised-button color="primary" type="submit" [disabled]="walletTypeForm.invalid || loading">
+            <span *ngIf="loading">Updating...</span>
+            <span *ngIf="!loading">Update Wallet Type</span>
+          </button>
+          <button mat-button type="button" (click)="cancel()">Cancel</button>
+        </div>
+      </form>
+    </mat-card-content>
+  </mat-card>
+</div>

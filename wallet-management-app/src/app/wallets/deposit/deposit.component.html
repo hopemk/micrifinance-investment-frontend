@@ -1,0 +1,51 @@
+<div class="container mt-4">
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>Deposit Funds</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <div *ngIf="loadingWallet" class="text-center my-4">
+        <p>Loading wallet details...</p>
+      </div>
+
+      <div *ngIf="error" class="alert alert-danger">
+        {{ error }}
+      </div>
+
+      <div *ngIf="success" class="alert alert-success">
+        {{ success }}
+      </div>
+
+      <div *ngIf="!loadingWallet && wallet" class="wallet-info mb-4">
+        <h3>Wallet: {{ wallet.name }}</h3>
+        <p>Current Balance: {{ wallet.balance | currency }}</p>
+      </div>
+
+      <form *ngIf="!loadingWallet && wallet" [formGroup]="depositForm" (ngSubmit)="onSubmit()" class="deposit-form">
+        <div class="row">
+          <div class="col-md-6 mb-3">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>Amount to Deposit</mat-label>
+              <input matInput type="number" formControlName="amount" placeholder="Enter amount">
+              <mat-icon matPrefix class="input-icon">attach_money</mat-icon>
+              <mat-error *ngIf="depositForm.get('amount')?.hasError('required')">
+                Amount is required
+              </mat-error>
+              <mat-error *ngIf="depositForm.get('amount')?.hasError('min')">
+                Amount must be greater than 0
+              </mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div class="form-actions">
+          <button mat-raised-button color="primary" type="submit" [disabled]="depositForm.invalid || loading">
+            <span *ngIf="loading">Processing...</span>
+            <span *ngIf="!loading">Deposit Funds</span>
+          </button>
+          <button mat-button type="button" (click)="cancel()">Cancel</button>
+        </div>
+      </form>
+    </mat-card-content>
+  </mat-card>
+</div>

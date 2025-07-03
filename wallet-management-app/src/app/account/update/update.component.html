@@ -1,0 +1,67 @@
+<div class="container mt-4">
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>Update Account</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <div *ngIf="loadingData" class="text-center my-4">
+        <p>Loading account data...</p>
+      </div>
+
+      <div *ngIf="error" class="alert alert-danger">
+        {{ error }}
+      </div>
+
+      <div *ngIf="success" class="alert alert-success">
+        {{ success }}
+      </div>
+
+      <form *ngIf="!loadingData && account" [formGroup]="accountForm" (ngSubmit)="onSubmit()" class="account-form">
+        <div class="row">
+          <div class="col-md-6 mb-3">
+            <mat-form-field appearance="outline" class="w-100" hideRequiredMarker>
+              <mat-label>Name</mat-label>
+              <input matInput formControlName="name">
+              <mat-icon matPrefix class="input-icon">person</mat-icon>
+              <mat-error *ngIf="accountForm.get('name')?.hasError('required')">
+                Name is required
+              </mat-error>
+            </mat-form-field>
+          </div>
+
+          <div class="col-md-6 mb-3">
+            <mat-form-field appearance="outline" class="w-100" hideRequiredMarker>
+              <mat-label>Phone Number</mat-label>
+              <input matInput formControlName="phoneNumber">
+              <mat-icon matPrefix class="input-icon">phone</mat-icon>
+              <mat-error *ngIf="accountForm.get('phoneNumber')?.hasError('required')">
+                Phone number is required
+              </mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-6 mb-3">
+            <mat-form-field appearance="outline" class="w-100" hideRequiredMarker>
+              <mat-label>Created By</mat-label>
+              <input matInput formControlName="createdBy">
+              <mat-icon matPrefix class="input-icon">create</mat-icon>
+              <mat-error *ngIf="accountForm.get('createdBy')?.hasError('required')">
+                Created by is required
+              </mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div class="form-actions">
+          <button mat-raised-button color="primary" type="submit" [disabled]="accountForm.invalid || loading">
+            <span *ngIf="loading">Updating...</span>
+            <span *ngIf="!loading">Update Account</span>
+          </button>
+          <button mat-button type="button" (click)="cancel()">Cancel</button>
+        </div>
+      </form>
+    </mat-card-content>
+  </mat-card>
+</div>

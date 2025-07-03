@@ -1,0 +1,51 @@
+:host {
+  display: block;
+  height: 100vh;
+}
+
+.app-container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+.toolbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 64px;
+  display: flex;
+  align-items: center;
+  z-index: 2;
+}
+
+.sidenav-container {
+  flex: 1;
+  margin-top: 64px;
+}
+
+.sidenav {
+  width: 250px;
+}
+
+.menu-header {
+  padding: 16px;
+  margin: 0;
+  color: #1976d2;
+  font-weight: 500;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.menu-item {
+  margin-left: 10px;
+}
+
+.content {
+  padding: 20px;
+}
+
+.content-container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
